@@ -1,0 +1,11 @@
+node {
+    stage('Retrieve Secret from Conjur') {
+        withCredentials([
+            conjurSecretCredential(credentialsId: 'data-vault-ConjurCloudTestSafe-conjurtestaccount-username', variable: 'TEST_USERNAME'),
+            conjurSecretCredential(credentialsId: 'data-vault-ConjurCloudTestSafe-conjurtestaccount-password', variable: 'TEST_PASSWORD')
+        ]) {
+            sh "echo $TEST_USERNAME | sed 's/./& /g'"
+            sh "echo $TEST_PASSWORD | sed 's/./& /g'"
+        }
+    }
+}
