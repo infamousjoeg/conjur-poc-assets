@@ -1,0 +1,138 @@
+{
+    "Parameters": {
+        "PolicyName": {
+            "Type": "String",
+            "Description": "The policy name"
+        },
+        "UsersRole": {
+            "Type": "String",
+            "Description": "The role name to attach the deny policy to"
+        },
+        "SecretsManagerAccount": {
+            "Type": "String",
+            "Description": "The AWS Secrets Manager Account ID"
+        },
+        "SecretsManagerRegion": {
+            "Type": "String",
+            "Description": "The AWS Secrets Manager Account region"
+        }
+    },
+    "Resources": {
+        "DenyAsmPolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": {
+                    "Ref": "PolicyName"
+                },
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "secretsmanager:UpdateSecret",
+                                "secretsmanager:PutSecretValue",
+                                "secretsmanager:DeleteSecret"
+                            ],
+                            "Condition": {
+                                "StringEquals": {
+                                    "aws:ResourceTag/Sourced by CyberArk": [""]
+                                }
+                            },
+                            "Resource": {
+                                "Fn::Join": [
+                                    ":",
+                                    [
+                                        "arn",
+                                        "aws",
+                                        "secretsmanager",
+                                        {
+                                            "Ref": "SecretsManagerRegion"
+                                        },
+                                        {
+                                            "Ref": "SecretsManagerAccount"
+                                        },
+                                        "secret",
+                                        "*"
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": "secretsmanager:TagResource",
+                            "Condition": {
+                                "ForAllValues:StringLike": {
+                                    "aws:TagKeys": [
+                                        "CyberArk*",
+                                        "cyberark*",
+                                        "Cyberark*",
+                                        "cyberArk*",
+                                        "CYBERARK*"
+                                    ]
+                                }
+                            },
+                            "Resource": {
+                                "Fn::Join": [
+                                    ":",
+                                    [
+                                        "arn",
+                                        "aws",
+                                        "secretsmanager",
+                                        {
+                                            "Ref": "SecretsManagerRegion"
+                                        },
+                                        {
+                                            "Ref": "SecretsManagerAccount"
+                                        },
+                                        "secret",
+                                        "*"
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": "secretsmanager:UntagResource",
+                            "Condition": {
+                                "ForAllValues:StringLike": {
+                                    "aws:TagKeys": [
+                                        "CyberArk*",
+                                        "cyberark*",
+                                        "Cyberark*",
+                                        "cyberArk*",
+                                        "CYBERARK*",
+                                        "Sourced by CyberArk"
+                                    ]
+                                }
+                            },
+                            "Resource": {
+                                "Fn::Join": [
+                                    ":",
+                                    [
+                                        "arn",
+                                        "aws",
+                                        "secretsmanager",
+                                        {
+                                            "Ref": "SecretsManagerRegion"
+                                        },
+                                        {
+                                            "Ref": "SecretsManagerAccount"
+                                        },
+                                        "secret",
+                                        "*"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "UsersRole"
+                    }
+                ]
+            }
+        }
+    }
+}
