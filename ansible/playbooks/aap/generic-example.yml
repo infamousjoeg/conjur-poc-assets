@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+
+  tasks:
+  - name: Fetch secret from CyberArk Conjur and print to stdout
+    debug:
+      msg: "Secret Value: {{ ansible_ssh_pass }}"
