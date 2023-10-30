@@ -1,0 +1,113 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "pocName": {
+            "type": "string",
+            "defaultValue": "secretsHubPOC",
+            "metadata": {
+                "description": "Name of the POC"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "vNetName": "[concat(parameters('pocName'), 'VNet')]",
+        "vmName": "[concat(parameters('pocName'), 'VM')]",
+        "kvName": "[concat(parameters('pocName'), 'KV')]",
+        "vmNicName": "[concat(parameters('pocName'), 'VMNic')]",
+        "vmNicId": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]",
+        "vNetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
+        "subnetRef": "[concat(variables('vNetId'), '/subnets/default')]",
+        "adminUsername": "[concat(parameters('pocName'), 'Admin')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-11-01",
+            "name": "[variables('vNetName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-03-01",
+            "name": "[variables('vmName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_E8s_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2022-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS"
+                        }
+                    }
+                },
+                "osProfile": {
+                    "computerName": "[variables('vmName')]",
+                    "adminUsername": "[variables('adminUsername')]",
+                    "windowsConfiguration": {
+                        "enableAutomaticUpdates": true,
+                        "provisionVmAgent": true
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[variables('vmNicId')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('kvName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+                "tenantId": "[subscription().tenantId]",
+                "networkAcls": {
+                    "defaultAction": "Deny",
+                    "virtualNetworkRules": [
+                        {
+                            "id": "[variables('subnetRef')]",
+                            "ignoreMissingVnetServiceEndpoint": false
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
