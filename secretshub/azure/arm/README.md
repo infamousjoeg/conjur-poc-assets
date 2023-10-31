@@ -6,7 +6,7 @@ Azure Resource Management (ARM) template for deploying a POC ready environment i
 
 ### Deploying the ARM template
 
-The ARM template can be deployed using the Azure CLI or PowerShell. The following example uses the Azure CLI.
+The ARM template can be deployed using the Azure Portal, Azure CLI or PowerShell.
 
 #### Azure Portal
 
