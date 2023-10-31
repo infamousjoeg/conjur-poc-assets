@@ -1,0 +1,39 @@
+# arm
+
+Azure Resource Management (ARM) template for deploying a POC ready environment inside an existing Resource Group for CyberArk's Secrets Hub.
+
+## Usage
+
+### Deploying the ARM template
+
+The ARM template can be deployed using the Azure CLI or PowerShell. The following example uses the Azure CLI.
+
+#### Azure Portal
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/infamousjoeg/conjur-poc-assets/main/secretshub/azure/arm/SetupResourceGroup.json)
+
+#### Bash
+
+```bash
+az deployment group create \
+  --name SecretsHubPOC \
+  --resource-group <resource-group-name> \
+  --template-file https://raw.githubusercontent.com/infamousjoeg/conjur-poc-assets/main/secretshub/azure/arm/SetupResourceGroup.json
+```
+
+#### PowerShell
+
+```powershell
+New-AzResourceGroupDeployment `
+  -Name SecretsHubPOC `
+  -ResourceGroupName <resource-group-name> `
+  -TemplateUri "https://raw.githubusercontent.com/infamousjoeg/conjur-poc-assets/main/secretshub/azure/arm/SetupResourceGroup.json"
+```
+
+### Registering Secrets Hub as an application in Azure AD
+
+#### PowerShell
+
+```powershell
+Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/infamousjoeg/conjur-poc-assets/main/secretshub/azure/arm/RegisterSecretsHub_EntraID.ps1" -UseBasicParsing).Content
+```
