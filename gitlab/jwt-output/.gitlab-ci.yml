@@ -1,0 +1,103 @@
+variables:
+    # Change the AUDIENCE value to your Conjur Cloud tenant URL
+    AUDIENCE: "https://pineapple.secretsmgr.cyberark.cloud"
+
+# {
+#   "namespace_id": "2",
+#   "namespace_path": "joe.garcia",
+#   "project_id": "1",
+#   "project_path": "joe.garcia/gitlab-jwt-output",
+#   "user_id": "2",
+#   "user_login": "joe.garcia",
+#   "user_email": "joe.garcia@pineappledev.app",
+#   "pipeline_id": "2",
+#   "pipeline_source": "push",
+#   "job_id": "3",
+#   "ref": "main",
+#   "ref_type": "branch",
+#   "ref_path": "refs/heads/main",
+#   "ref_protected": "true",
+#   "jti": "8b81856b-9c83-4c40-ba28-e6c3d2ad11f4",
+#   "iss": "gitlab.infamousdevops.com",
+#   "iat": 1698084207,
+#   "nbf": 1698084202,
+#   "exp": 1698087807,
+#   "sub": "job_3"
+# }
+
+version_one:
+    script:
+        - echo "$CI_JOB_JWT" | base64
+
+# {
+#   "namespace_id": "2",
+#   "namespace_path": "joe.garcia",
+#   "project_id": "1",
+#   "project_path": "joe.garcia/gitlab-jwt-output",
+#   "user_id": "2",
+#   "user_login": "joe.garcia",
+#   "user_email": "joe.garcia@pineappledev.app",
+#   "pipeline_id": "2",
+#   "pipeline_source": "push",
+#   "job_id": "4",
+#   "ref": "main",
+#   "ref_type": "branch",
+#   "ref_path": "refs/heads/main",
+#   "ref_protected": "true",
+#   "runner_id": 2,
+#   "runner_environment": "self-hosted",
+#   "sha": "495609b4b67c70c4cbab0f5b7e26e805d694c492",
+#   "project_visibility": "internal",
+#   "ci_config_ref_uri": "gitlab.infamousdevops.com/joe.garcia/gitlab-jwt-output//.gitlab-ci.yml@refs/heads/main",
+#   "ci_config_sha": "495609b4b67c70c4cbab0f5b7e26e805d694c492",
+#   "jti": "c459c9ac-402e-4245-80f4-75122a787dc6",
+#   "iss": "https://gitlab.infamousdevops.com",
+#   "iat": 1698084211,
+#   "nbf": 1698084206,
+#   "exp": 1698087811,
+#   "sub": "project_path:joe.garcia/gitlab-jwt-output:ref_type:branch:ref:main",
+#   "aud": "https://gitlab.infamousdevops.com"
+# }
+version_two:
+    script:
+        - echo "$CI_JOB_JWT_V2" | base64
+
+# {
+#   "namespace_id": "2",
+#   "namespace_path": "joe.garcia",
+#   "project_id": "1",
+#   "project_path": "joe.garcia/gitlab-jwt-output",
+#   "user_id": "2",
+#   "user_login": "joe.garcia",
+#   "user_email": "joe.garcia@pineappledev.app",
+#   "pipeline_id": "5",
+#   "pipeline_source": "push",
+#   "job_id": "9",
+#   "ref": "main",
+#   "ref_type": "branch",
+#   "ref_path": "refs/heads/main",
+#   "ref_protected": "true",
+#   "runner_id": 2,
+#   "runner_environment": "self-hosted",
+#   "sha": "43f4ad1c27efb5bed032f99abd256533f2e57089",
+#   "project_visibility": "internal",
+#   "ci_config_ref_uri": "gitlab.infamousdevops.com/joe.garcia/gitlab-jwt-output//.gitlab-ci.yml@refs/heads/main",
+#   "ci_config_sha": "43f4ad1c27efb5bed032f99abd256533f2e57089",
+#   "jti": "ded18e22-646b-4704-aec2-de8959a87353",
+#   "iss": "https://gitlab.infamousdevops.com",
+#   "iat": 1698151877,
+#   "nbf": 1698151872,
+#   "exp": 1698155477,
+#   "sub": "project_path:joe.garcia/gitlab-jwt-output:ref_type:branch:ref:main",
+#   "aud": "https://pineapple.secretsmgr.cyberark.cloud"
+# }
+
+version_three:
+    id_tokens:
+        ID_TOKEN_1:
+            aud: $AUDIENCE
+    variables:
+        CI_JOB_JWT_V3: $ID_TOKEN_1
+    script:
+        - echo "$CI_JOB_JWT_V3" | base64
+      

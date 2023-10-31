@@ -1,0 +1,41 @@
+variables:
+    AUDIENCE: "https://pineapple.secretsmgr.cyberark.cloud"
+    CONJUR_APPLIANCE_URL: "https://pineapple.secretsmgr.cyberark.cloud/api"
+    CONJUR_ACCOUNT: "conjur"
+    CONJUR_AUTHN_JWT_SERVICE_ID: "gitlab"
+
+alpine:
+    id_tokens:
+        ID_TOKEN_1:
+            aud: $AUDIENCE
+    variables:
+        CONJUR_AUTHN_JWT_TOKEN: $ID_TOKEN_1
+    image: cyberark/authn-jwt-gitlab:alpine-1.0.0
+    script:
+        - export AWS_ACCOUNT_ID=$(CONJUR_SECRET_ID="data/vault/ConjurCloudTestSafe/conjurtestaccount/address" /authn-jwt-gitlab)     
+        - echo "$AWS_ACCOUNT_ID"
+        - echo "$AWS_ACCOUNT_ID" | sed 's/./& /g'
+
+ubuntu:
+    id_tokens:
+        ID_TOKEN_2:
+            aud: $AUDIENCE
+    variables:
+        CONJUR_AUTHN_JWT_TOKEN: $ID_TOKEN_2
+    image: cyberark/authn-jwt-gitlab:ubuntu-1.0.0
+    script:
+        - export AWS_ACCOUNT_ID=$(CONJUR_SECRET_ID="data/vault/ConjurCloudTestSafe/conjurtestaccount/address" /authn-jwt-gitlab)     
+        - echo "$AWS_ACCOUNT_ID"
+        - echo "$AWS_ACCOUNT_ID" | sed 's/./& /g'
+
+ubi:
+    id_tokens:
+        ID_TOKEN_3:
+            aud: $AUDIENCE
+    variables:
+        CONJUR_AUTHN_JWT_TOKEN: $ID_TOKEN_3
+    image: cyberark/authn-jwt-gitlab:ubi-1.0.0
+    script:
+        - export AWS_ACCOUNT_ID=$(CONJUR_SECRET_ID="data/vault/ConjurCloudTestSafe/conjurtestaccount/address" /authn-jwt-gitlab)     
+        - echo "$AWS_ACCOUNT_ID"
+        - echo "$AWS_ACCOUNT_ID" | sed 's/./& /g'
