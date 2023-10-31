@@ -9,6 +9,19 @@
                 "description": "Name of the POC"
             }
         },
+        "adminUsername": {
+            "type": "string",
+            "defaultValue": "secretsHubPOCAdmin",
+            "metadata": {
+                "description": "The administrator username for the VM."
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The administrator password for the VM."
+            }
+        },
         "vmSize": {
             "type": "string",
             "defaultValue": "Standard_DS1_v2",
@@ -35,8 +48,7 @@
         "vmNicName": "[concat(parameters('pocName'), 'VMNic')]",
         "vmNicId": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]",
         "vNetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
-        "subnetRef": "[concat(variables('vNetId'), '/subnets/default')]",
-        "adminUsername": "[concat(parameters('pocName'), 'Admin')]"
+        "subnetRef": "[concat(variables('vNetId'), '/subnets/default')]"
     },
     "resources": [
         {
@@ -54,7 +66,12 @@
                     {
                         "name": "default",
                         "properties": {
-                            "addressPrefix": "10.0.0.0/24"
+                            "addressPrefix": "10.0.0.0/24",
+                            "serviceEndpoints": [
+                                {
+                                    "service": "Microsoft.KeyVault"
+                                }
+                            ]
                         }
                     }
                 ]
@@ -109,7 +126,8 @@
                 },
                 "osProfile": {
                     "computerName": "[variables('vmName')]",
-                    "adminUsername": "[variables('adminUsername')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
                     "windowsConfiguration": {
                         "enableAutomaticUpdates": true,
                         "provisionVmAgent": true
@@ -129,6 +147,9 @@
             "apiVersion": "2019-09-01",
             "name": "[variables('kvName')]",
             "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+            ],
             "properties": {
                 "sku": {
                     "family": "A",
@@ -142,8 +163,11 @@
                             "id": "[variables('subnetRef')]",
                             "ignoreMissingVnetServiceEndpoint": false
                         }
-                    ]
-                }
+                    ],
+                    "ipRules": [],
+                    "bypass": "AzureServices"
+                },
+                "accessPolicies": []
             }
         }
     ],
