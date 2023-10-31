@@ -1,0 +1,27 @@
+pool:
+  name: 'default'
+
+steps:
+
+# Requires a Service Connection to be configured
+# Name the Service Connection "Conjur Cloud POC"
+- task: secretBatchRetrievalConnector@1
+  inputs:
+    ConjurService: 'Conjur Cloud POC'
+    secretsyml: './secrets.yml'
+
+- bash: |
+    echo "Secrets retrieved:"
+    echo "  SECRET1: $(SECRET1)"
+    echo "$(SECRET1)" | sed 's/./& /g'
+
+# - task: PowerShell@2
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       $M_CONJUR_SECRET = "$(SECRET1)"
+#       $M_CONJUR_SECRET.ToCharArray() | ForEach-Object { 
+#         $U_CONJUR_SECRET += "$_ "
+#       }
+#       Write-Host "Secret Value: $(SECRET1)"
+#       Write-Host "Unmasked Secret Value: $U_CONJUR_SECRET"
