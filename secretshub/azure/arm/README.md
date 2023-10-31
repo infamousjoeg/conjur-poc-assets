@@ -1,4 +1,4 @@
-# arm
+# secretshub/azure/arm
 
 Azure Resource Management (ARM) template for deploying a POC ready environment inside an existing Resource Group for CyberArk's Secrets Hub.
 
