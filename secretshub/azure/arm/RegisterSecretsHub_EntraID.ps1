@@ -35,18 +35,18 @@ if ($keyVault.EnableRBACAuthorization) {
     $RoleDefinitionName = "Secrets-Hub-$KeyVaultName-Role"
     try {
         $roleDefinition = [Microsoft.Azure.Commands.Resources.Models.Authorization.PSRoleDefinition]::new()
-        $roleDefinition.Name = $RoleDefinitionName
-        $roleDefinition.Description = "provide read-write access to secrets in key vault"
-        $roleDefinition.Actions = @()
-            $roleDefinition.Actions.Add("Microsoft.KeyVault/vaults/secrets/write")
-            $roleDefinition.Actions.Add("Microsoft.KeyVault/vaults/secrets/read")
-        $roleDefinition.DataActions = @()
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/delete")
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/purge/action")
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/update/action")
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/getSecret/action")
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/setSecret/action")
-            $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/readMetadata/action")
+            $roleDefinition.Name = $RoleDefinitionName
+            $roleDefinition.Description = "provide read-write access to secrets in key vault"
+            $roleDefinition.Actions = @()
+                $roleDefinition.Actions.Add("Microsoft.KeyVault/vaults/secrets/write")
+                $roleDefinition.Actions.Add("Microsoft.KeyVault/vaults/secrets/read")
+            $roleDefinition.DataActions = @()
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/delete")
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/purge/action")
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/update/action")
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/getSecret/action")
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/setSecret/action")
+                $roleDefinition.DataActions.Add("Microsoft.KeyVault/vaults/secrets/readMetadata/action")
             $roleDefinition.AssignableScopes = @("/subscriptions/$azureSubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.KeyVault/vaults/$KeyVaultName")
         
         New-AzRoleDefinition -Role $roleDefinition
