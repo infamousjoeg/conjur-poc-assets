@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-jwt-app1
+  namespace: conjurpoc
+  labels:
+    app: jwtsecrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: demo
+      app: jwtsecrets
+  template:
+    metadata:
+      labels:
+        role: demo
+        app: jwtsecrets
+    spec:
+      serviceAccountName: jwt-app-account
+      containers:
+      - name: k8s-jwt-app
+        image: centos
+        command: ["sleep","infinity"]
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: conjur-connect-jwt
+        volumeMounts:
+          - name: scripts
+            mountPath: /scripts
+      volumes:
+      - name: scripts
+        configMap:
+          name: jwt-retrieve 
+          defaultMode: 0755
