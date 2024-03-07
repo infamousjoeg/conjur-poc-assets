@@ -1,1 +1,1 @@
-# Sidecar w/ authn-jwt
+# JWT Authentication with Kubernetes
