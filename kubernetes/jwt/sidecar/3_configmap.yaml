@@ -1,0 +1,69 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conjur-connect-jwt
+  namespace: conjurpoc   
+  labels:
+    app.kubernetes.io/name: "conjur-connect-configmap-jwt"
+    app.kubernetes.io/instance: "conjur-jwt-configmap"
+    app.kubernetes.io/part-of: "conjur-config"
+    conjur.org/name: "conjur-connect-configmap-jwt"
+data:
+  CONJUR_ACCOUNT: cyberark
+  CONJUR_APPLIANCE_URL: "https://pocservice.conjurpoc.svc.cluster.local"
+  CONJUR_AUTHN_URL: "https://pocservice.conjurpoc.svc.cluster.local/authn-jwt/k8s-cluster1"
+  CONJUR_AUTHENTICATOR_ID: "k8s-cluster1"
+  CONJUR_VERSION: "5"
+  # If Conjur Edge node is being used, change to SSL certificate.
+  # If direct to Conjur Cloud, keep blank.
+  CONJUR_SSL_CERTIFICATE: |-
+-----BEGIN CERTIFICATE-----
+MIIGVzCCBT+gAwIBAgIRALBLm+dwdCO1uBJVC1oy8ZswDQYJKoZIhvcNAQELBQAw
+gY8xCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+BgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE3MDUGA1UE
+AxMuU2VjdGlnbyBSU0EgRG9tYWluIFZhbGlkYXRpb24gU2VjdXJlIFNlcnZlciBD
+QTAeFw0yMzExMDYwMDAwMDBaFw0yNDExMDYyMzU5NTlaMCIxIDAeBgNVBAMTF2Vk
+Z2UuaW5mYW1vdXNkZXZvcHMuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+CgKCAQEAxNTcQLBdoBkg++QzlqwatrIa/cX+Ez+T2LGO6usS0fMHml+jodI/Furi
+SuMTP/o2kIkzbVWIx9ruE5zp/TaJ0FoWhiTcgOM6p6LdvsPKOtk6H3aWI1CuwUBp
+c2MggjwNEDuU/c8xiMVGWLnbTVzcXRnSomnaNU0Oy/A6GoHeG9wBbp3NklxCuWAR
+2LVrc/wBlvu4B7sE3YjNleFnJKDGm7lVrR+Kl2UCCoOn2VIl7mt0PGmcXYIpREgA
+edu206mphUp2N9LywBwVGZaUXfe0hsOF76dXBjo+5qqTsYdUAW2wnkwRsae7bIpY
+6V9DtvirGErtDIG0bnKKNIzG8mA35QIDAQABo4IDGDCCAxQwHwYDVR0jBBgwFoAU
+jYxexFStiuF36Zv5mwXhuAGNYeEwHQYDVR0OBBYEFI0rIBQHdJWp4NiUG8YvNLI4
+Rz+1MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsG
+AQUFBwMBBggrBgEFBQcDAjBJBgNVHSAEQjBAMDQGCysGAQQBsjEBAgIHMCUwIwYI
+KwYBBQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMAgGBmeBDAECATCBhAYI
+KwYBBQUHAQEEeDB2ME8GCCsGAQUFBzAChkNodHRwOi8vY3J0LnNlY3RpZ28uY29t
+L1NlY3RpZ29SU0FEb21haW5WYWxpZGF0aW9uU2VjdXJlU2VydmVyQ0EuY3J0MCMG
+CCsGAQUFBzABhhdodHRwOi8vb2NzcC5zZWN0aWdvLmNvbTA/BgNVHREEODA2ghdl
+ZGdlLmluZmFtb3VzZGV2b3BzLmNvbYIbd3d3LmVkZ2UuaW5mYW1vdXNkZXZvcHMu
+Y29tMIIBgAYKKwYBBAHWeQIEAgSCAXAEggFsAWoAdgB2/4g/Crb7lVHCYcz1h7o0
+tKTNuyncaEIKn+ZnTFo6dAAAAYulM17DAAAEAwBHMEUCIDd9oTjXWVcoNzb1WCFE
+3WZY/aBO0W6OJ7eDBguGpG8KAiEAp3uihilEQB2ETPhMLyDPxeXESrc1fGEZ637w
+uraPj8wAdwA/F0tP1yJHWJQdZRyEvg0S7ZA3fx+FauvBvyiF7PhkbgAAAYulM17q
+AAAEAwBIMEYCIQC/wdKZOaIG/fGI5SfcMte7ESZp6KjbxqZDb+bMtXwSNwIhALeT
+JPxXwCNx7gzY7UAcs7DyQHdpWYJQ4m9m5uvr0xGiAHcA7s3QZNXbGs7FXLedtM0T
+ojKHRny87N7DUUhZRnEftZsAAAGLpTNe8QAABAMASDBGAiEA3F8vRPSsYv/x1vUi
+PkHDenP9xl16jsAoFdEiT5U8f1gCIQCyVPJX3oQ0FpQlEhubY14N5LcCX6SSPJB0
+j6jj6V4aADANBgkqhkiG9w0BAQsFAAOCAQEAjDooNDpQ42QFtZsbrvlwKAPzzwQH
+yve6PmnPfyC1IBUrmt6wKzaDtOFuk3cb7JJP8ZrqoBkxP4g2wPKLt49uwIjRBnu1
+XP5Cs0P1ySnLN/msNzUiya+Jg4Ils36ALfNUwgTZJqARb3A4rcE1q2E8XkB6Nra3
+JjeuO2Cs7O2zbzNmIKTmd5/nl++pduJURMR2E/f2MNhuOOst3YFWN02OurB2qeRn
+nypZEzrxkZbly/Ite3j94LWllIlfmi4y90Cwncx15YMAGuOOsSnpAo6G2JetrN/c
+GOb4HSB1CLuYSf/wh7frPNxZ/2CZfiQ1mLEeOCVEH60TMzDj6aboRhDpiQ==
+-----END CERTIFICATE-----
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jwt-retrieve
+  namespace: conjurpoc
+data:
+  retrieve.sh: |
+    #!/bin/bash
+    JWT=\$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+    token=\$(curl -k -s --request POST "https://pocservice.conjurpoc.svc.cluster.local/authn-jwt/k8s-cluster1/cyberark/authenticate" --header 'Content-Type: application/x-www-form-urlencoded' --header "Accept-Encoding: base64" --data-urlencode "jwt=\$JWT")
+    secret=\$(curl -k -s -X GET -H "Authorization: Token token=\"\$token\"" "https://pocservice.conjurpoc.svc.cluster.local/secrets/cyberark/variable/data/example-vault1/example-safe1/secret1/username")
+    echo \$secret
