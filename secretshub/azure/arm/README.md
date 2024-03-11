@@ -10,7 +10,7 @@ The ARM template can be deployed using the Azure Portal, Azure CLI or PowerShell
 
 #### Azure Portal
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/infamousjoeg/conjur-poc-assets/main/secretshub/azure/arm/SetupResourceGroup.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Finfamousjoeg%2Fconjur-poc-assets%2Fmain%2Fsecretshub%2Fazure%2Farm%2FSetupResourceGroup.json)
 
 #### Bash
 
