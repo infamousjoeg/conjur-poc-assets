@@ -19,8 +19,18 @@
 
 ### Job2
 
-1. Create a new **Pipeline** item inside the `Dev-Team-1` folder..
+1. Create a new **Pipeline** item inside the `Dev-Team-1` folder.
 2. In the **Job Name** field, enter `Job2`.
 3. In the **Pipeline** section, select **Pipeline script**.
 4. Copy the contents of [Job2/Jenkinsfile](Job2/Jenkinsfile) into the **Script** field.
+5. Save and build now.
+
+### dynamic-secrets-aws
+
+**Only deploy as a part of the [dynamic secrets pipeline](https://github.com/infamousjoeg/conjur-poc-assets/tree/main/dynamic-secrets/aws).**
+
+1. Create a new **Pipeline** item inside the `Dev-Team-1` folder.
+2. In the **Job Name** field, enter `dynamic-secrets-aws`.
+3. In the **Pipeline** section, select **Pipeline script**.
+4. Copy the contents of [dynamic-secrets-aws/Jenkinsfile](dynamic-secrets-aws/Jenkinsfile) into the **Script** field.
 5. Save and build now.

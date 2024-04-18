@@ -1,0 +1,24 @@
+- !variable
+  id: aws-ec2-describe
+  annotations:
+    dynamic/issuer: my-aws-issuer
+    dynamic/method: federation-token
+    dynamic/ttl: 900
+    dynamic/inline-policy: |-
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "ec2:DescribeInstances"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+
+- !permit
+  role: !host /data/ci/jenkins/Dev-Team-1/dynamic-secrets-aws
+  privileges: [ read, execute ]
+  resource: !variable aws-ec2-describe

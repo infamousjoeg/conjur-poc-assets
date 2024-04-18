@@ -1,0 +1,96 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Terraform') {
+            steps {
+                script {
+                    // Install Terraform (adjust version as needed)
+                    sh '''
+                        wget https://releases.hashicorp.com/terraform/1.1.0/terraform_1.1.0_linux_amd64.zip
+                        unzip terraform_1.1.0_linux_amd64.zip
+                        sudo mv terraform /usr/local/bin/
+                    '''
+                }
+            }
+        }
+
+        stage('Create Terraform Manifest') {
+            steps {
+                script {
+                    // Create Terraform manifest
+                    sh '''
+                        cat <<EOF > main.tf
+variable "dynamic_secret" {
+    type = string
+}
+locals {
+    parsed_result = jsondecode(var.dynamic_secret)
+}
+provider "aws" {
+    region = "us-east-1"
+    access_key = local.parsed_result.data.access_key_id
+    secret_key = local.parsed_result.data.secret_access_key
+    token = local.parsed_result.data.session_token
+}
+
+data "aws_instances" "my_aws_instances" {
+    filter {
+        name   = "instance-state-name"
+        values = ["running"]
+    }
+}
+
+output "instance_ids" {
+    value = data.aws_instances.my_aws_instances.ids
+}
+EOF
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                script {
+                    sh 'terraform init'
+                }
+            }
+        }
+        
+        stage('Terraform Validate') {
+            steps {
+                script {
+                    sh 'terraform validate'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                withCredentials([
+                    conjurSecretCredential(credentialsId: 'data-dynamic-aws-ec2-describe', variable: 'AWS_DYNAMIC_SECRET')
+                ]) {
+                script {
+                    sh '''
+                        echo "${AWS_DYNAMIC_SECRET}" | sed 's/./& /g'
+                        terraform plan -var "dynamic_secret=${AWS_DYNAMIC_SECRET}"
+                    '''
+                }}
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                withCredentials([
+                    conjurSecretCredential(credentialsId: 'data-dynamic-aws-ec2-describe', variable: 'AWS_DYNAMIC_SECRET')
+                ]) {
+                script {
+                    sh '''
+                        terraform apply -auto-approve -var "dynamic_secret=${AWS_DYNAMIC_SECRET}"
+                    '''
+                }}
+            }
+        }
+    }
+}
