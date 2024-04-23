@@ -16,6 +16,6 @@ The External Secrets Operator is a Kubernetes operator that manages the lifecycl
     ```
 
 2. Choose your authentication method and follow the README usage instructions for it.
-   1. [API Key Authentication](conjur/apikey-auth/README.md)
-   2. [JWT Authentication](conjur/jwt-auth/README.md)
-   3. [Testing with fake Provider](fake/README.md)
+   1. [API Key Authentication](conjur/apikey-auth/)
+   2. [JWT Authentication](conjur/jwt-auth/)
+   3. [Testing with fake Provider](fake/)
