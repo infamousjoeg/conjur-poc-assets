@@ -1,0 +1,20 @@
+---
+- hosts: PSMPTargets
+  gather_facts: no
+
+  tasks:
+  # Need to set the connection string details and delegate to localhost to prevent
+  # an error from an immature connection.
+  - name: Set Facts for Connection via PSMP
+    ansible.builtin.set_fact:
+      ansible_ssh_user: "{{ username }}@root@{{ inventory_hostname }}"
+      host_key_checking: no
+    delegate_to: localhost
+
+  - name: Get Remote Host `hostname`
+    ansible.builtin.command: hostname
+    register: target_hostname
+
+  - name: Display Hostname of remote host
+    debug:
+      msg: "Connected Hostname: {{ target_hostname }}"
