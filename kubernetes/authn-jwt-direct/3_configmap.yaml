@@ -63,7 +63,7 @@ metadata:
 data:
   retrieve.sh: |
     #!/bin/bash
-    JWT=\$(cat /run/secrets/kubernetes.io/serviceaccount/token)
-    token=\$(curl -k -s --request POST "https://CONJUR_OR_EDGE_SERVICE/api/authn-jwt/k8s-cluster1/conjur/authenticate" --header 'Content-Type: application/x-www-form-urlencoded' --header "Accept-Encoding: base64" --data-urlencode "jwt=\$JWT")
-    secret=\$(curl -k -s -X GET -H "Authorization: Token token=\"\$token\"" "https://CONJUR_OR_EDGE_SERVICE/api/secrets/conjur/variable/data/example-vault1/example-safe1/secret1/username")
-    echo \$secret
+    JWT=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+    token=$(curl -k -s --request POST "https://CONJUR_OR_EDGE_SERVICE/api/authn-jwt/k8s-cluster1/conjur/authenticate" --header 'Content-Type: application/x-www-form-urlencoded' --header "Accept-Encoding: base64" --data-urlencode "jwt=$JWT")
+    secret=$(curl -k -s -X GET -H "Authorization: Token token=\"$token\"" "https://CONJUR_OR_EDGE_SERVICE/api/secrets/conjur/variable/data/example-vault1/example-safe1/secret1/username")
+    echo $secret
