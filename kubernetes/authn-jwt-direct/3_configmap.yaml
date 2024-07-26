@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: conjur-connect-jwt
-  namespace: conjurpoc   
+  namespace: authn-jwt-direct
   labels:
     app.kubernetes.io/name: "conjur-connect-configmap-jwt"
     app.kubernetes.io/instance: "conjur-jwt-configmap"
@@ -59,7 +59,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: jwt-retrieve
-  namespace: conjurpoc
+  namespace: authn-jwt-direct
 data:
   retrieve.sh: |
     #!/bin/bash
