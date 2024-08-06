@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define variables for CCP access
+        CCP_URL = 'https://ccp.example.com/AIMWebService/api/Accounts'
+        APP_ID = 'Jenkins'
+        SAFE = 'TestSafe'
+        USERNAME = 'TestUsername'
+    }
+
+    stages {
+        stage('Get Credentials from CyberArk CCP') {
+            steps {
+                script {
+                    // Define the query parameters
+                    def query = "AppID=${APP_ID}&Safe=${SAFE}&UserName=${USERNAME}"
+
+                    // Make the curl request to the CCP
+                    def response = sh(script: "curl -s -X GET \"${CCP_URL}?${query}\"", returnStdout: true).trim()
+                    
+                    // Print the response for debugging purposes
+                    echo "Response from CCP: ${response}"
+                    
+                    // Parse the response (assuming JSON format) and extract the password
+                    def jsonResponse = readJSON text: response
+                    def password = jsonResponse.Content.Password
+                    echo "Retrieved Password: ${password}"
+
+                    // Use the retrieved password in subsequent steps
+                    // For example, setting it as an environment variable
+                    env.RETRIEVED_PASSWORD = password
+                }
+            }
+        }
+        // Additional stages can be added here to use the retrieved password
+    }
+}
