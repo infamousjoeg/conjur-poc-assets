@@ -16,16 +16,7 @@ A simple C# .NET Console application that demonstrates how to authenticate with 
 
 ## Setup Instructions
 
-### 1. Clone the Repository
-
-Clone this repository to your local machine:
-
-```bash
-git clone https://github.com/infamousjoeg/conjur-demo-app-net.git
-cd conjur-demo-app-net
-```
-
-### 2. Install Dependencies
+### 1. Install Dependencies
 
 Navigate to the project directory and install the required NuGet packages:
 
