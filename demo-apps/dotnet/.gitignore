@@ -1,0 +1,74 @@
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.rsuser
+*.suo
+*.userprefs
+
+# Visual Studio specific files
+.vscode/
+.vs/
+.idea/
+
+# Mac specific files
+.DS_Store
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# Build results
+*.exe
+*.dll
+*.pdb
+*.app
+*.so
+*.dylib
+*.class
+*.swp
+
+# Cache and backup files
+*.cache
+*.bak
+*.orig
+*.old
+
+# Configuration files for packages and tools
+*.lock.json
+
+# Rider specific files
+.idea/
+
+# Other config
+appsettings.Development.json
+appsettings.Local.json
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# Dotnet tool packages
+.dotnet_tool/
+
+# NuGet v3's project.json files produces more artifacts
+project.assets.json
+project.nuget.cache
+
+# Dotnet specific
+.dotnet/
+
+# JetBrains Rider's solution options directory
+.idea/
+
+# Windows image file caches
+Thumbs.db​⬤
