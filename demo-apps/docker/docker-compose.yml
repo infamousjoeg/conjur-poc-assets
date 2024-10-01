@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  conjur-demo-app:
+    image: nfmsjoeg/conjur-demo-app-docker:latest
+    secrets:
+      - CONJUR_URL
+      - CONJUR_AUTHN_LOGIN
+      - CONJUR_AUTHN_API_KEY
+      - CONJUR_ACCOUNT
+      - SECRET_PATH
+    environment:
+      - CONJUR_URL_FILE=/run/secrets/CONJUR_URL
+      - CONJUR_AUTHN_LOGIN_FILE=/run/secrets/CONJUR_AUTHN_LOGIN
+      - CONJUR_AUTHN_API_KEY_FILE=/run/secrets/CONJUR_AUTHN_API_KEY
+      - CONJUR_ACCOUNT_FILE=/run/secrets/CONJUR_ACCOUNT
+      - SECRET_PATH_FILE=/run/secrets/SECRET_PATH
+
+secrets:
+  CONJUR_URL:
+    external: true
+  CONJUR_AUTHN_LOGIN:
+    external: true
+  CONJUR_AUTHN_API_KEY:
+    external: true
+  CONJUR_ACCOUNT:
+    external: true
+  SECRET_PATH:
+    external: true
