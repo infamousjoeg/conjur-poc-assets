@@ -2,6 +2,7 @@ name: Test Conjur Secret Fetcher Action
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   test:
