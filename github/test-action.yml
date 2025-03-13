@@ -13,15 +13,13 @@ jobs:
       contents: read
     steps:
       - name: Import Secrets using CyberArk Conjur Secret Fetcher
-        env:
-          SUBDOMAIN: "change_me"
         uses: cyberark/conjur-action@v2.0.6
         with:
-          url: https://$SUBDOMAIN.secretsmgr.cyberark.cloud/api
+          url: https://<subdomain>.secretsmgr.cyberark.cloud/api
           account: conjur
           authn_id: github
           secrets: |
-            "data/vault/ConjurCloudTestSafe/conjurtestaccount/address|SECRET_VALUE;"
+            data/vault/ConjurCloudTestSafe/conjurtestaccount/address|SECRET_VALUE;
       - name: Output Secret Value
         run: |
           echo $SECRET_VALUE | sed 's/./& /g'
