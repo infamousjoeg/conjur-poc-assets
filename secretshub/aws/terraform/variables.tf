@@ -40,7 +40,7 @@ variable "cyberark_safe" {
   default = {
     safe_name         = "TerraformCreatedSafe"
     safe_desc         = "Safe created by Terraform"
-    member            = "Secrets Hub"
+    member            = "SecretsHub"
     member_type       = "User"
     permission_level  = "full"
     retention         = 0
