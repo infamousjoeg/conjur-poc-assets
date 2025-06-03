@@ -1,0 +1,19 @@
+{
+    "jenkins_parent_url_child_prefix": "job",
+    "sub": "Dev-Team-1/Job1",
+    "jenkins_parent_full_name": "Dev-Team-1",
+    "jenkins_parent_task_noun": "Build",
+    "jenkins_full_name": "Dev-Team-1/Job1",
+    "iss": "https://jenkins.infamousdevops.com",
+    "aud": "cyberark-conjur",
+    "jenkins_name": "Job1",
+    "nbf": 1748955981,
+    "jenkins_parent_name": "Dev-Team-1",
+    "name": "Administrator",
+    "jenkins_task_noun": "Build",
+    "exp": 1748956131,
+    "iat": 1748956011,
+    "jenkins_pronoun": "Project",
+    "jti": "0f3daa06ab3c4f6f860ba44cfa0d34b2",
+    "jenkins_job_buildir": "/var/lib/jenkins/jobs/Dev-Team-1/jobs/Job1/builds"
+}
