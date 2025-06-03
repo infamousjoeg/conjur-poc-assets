@@ -1,0 +1,21 @@
+{
+  "iss": "https://kubernetes.default.svc.cluster.local",
+  "sub": "system:serviceaccount:default:my-service-account",
+  "aud": [
+    "https://subdomain.secretsmgr.conjur.cloud"
+  ],
+  "exp": 1717450800,
+  "nbf": 1717447200,
+  "iat": 1717447200,
+  "kubernetes.io": {
+    "namespace": "default",
+    "serviceaccount": {
+      "name": "my-service-account",
+      "uid": "abc12345-6789-4321-bcde-abcdef123456"
+    },
+    "pod": {
+      "name": "my-pod",
+      "uid": "def67890-1234-5678-abcd-1234567890ab"
+    }
+  }
+}
