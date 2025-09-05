@@ -19,7 +19,7 @@ jobs:
           account: conjur
           authn_id: github
           secrets: |
-            data/vault/ConjurCloudTestSafe/conjurtestaccount/address|SECRET_VALUE;
+            data/vault/ConjurCloudTestSafe/Database-MSSql-10.0.0.1-conjurtestaccount/address|SECRET_VALUE;
       - name: Output Secret Value
         run: |
           echo $SECRET_VALUE | sed 's/./& /g'
