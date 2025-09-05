@@ -4,4 +4,4 @@
   tasks:
   - name: Fetch secret from CyberArk Conjur and print to stdout
     debug:
-      msg: "The secret is: {{ lookup('cyberark.conjur.conjur_variable', 'data/vault/ConjurCloudTestSafe/conjurtestaccount/password') }}"
+      msg: "The secret is: {{ lookup('cyberark.conjur.conjur_variable', 'data/vault/ConjurCloudTestSafe/Database-MSSql-10.0.0.1-conjurtestaccount/address') }}"
